@@ -1,152 +1,162 @@
-// /////////////////////////////////////////////////////////////////////
-// // Initalize Constant to store DOM Elements
-// /////////////////////////////////////////////////////////////////////
-// const butTestGET = document.getElementById("testGET");
-// const butTestPOST = document.getElementById("testPOST");
-
-// const butCreate = document.getElementById("createTable");
-// const butDrop = document.getElementById("dropTable");
-// const butInsert = document.getElementById("insertMessage");
-// const butSelect = document.getElementById("getMessages");
-// const txtToSend = document.getElementById("messageToSend");
-// const txtDisplay = document.getElementById("messagesDisplay");
-
-// /////////////////////////////////////////////////////////////////////
-// // Setup onclick Events
-// /////////////////////////////////////////////////////////////////////
-// butTestGET.onclick = TestGet;
-// butTestPOST.onclick = TestPost;
-// butCreate.onclick = CreateTable;
-// butDrop.onclick = DropTable;
-// butInsert.onclick = InsertMessage;
-// butSelect.onclick = GetAllMessages;
-
-// /////////////////////////////////////////////////////////////////////
-// // Function to Display Server Response
-// /////////////////////////////////////////////////////////////////////
-// function DisplayResponse(objData)
-// {   
-//     txtDisplay.innerHTML = "";
-//     let sData = JSON.stringify(objData);
-//     txtDisplay.append(sData);
-// }
-
-// /////////////////////////////////////////////////////////////////////
-// // Function to Test GET with Server
-// /////////////////////////////////////////////////////////////////////
-// function TestGet()
-// {
-//     axios.get('http://localhost:3000/api', { params: { message: "Hello World!" } })
-//     .then((response) => {
-//         console.log(response.data); //View in Browser's Developer Tools
-
-//         DisplayResponse(response.data);
-//     })
-//     .catch(function (error) {
-//         DisplayResponse(error);
-//     });
-// }
-
-// /////////////////////////////////////////////////////////////////////
-// // Function to Test POST with Server
-// /////////////////////////////////////////////////////////////////////
-// function TestPost()
-// {
-//     axios.post('http://localhost:3000/api/', { message: "Hello Again!" })
-//     .then((response) => {
-//         console.log(response.data); //View in Browser's Developer Tools
-
-//         DisplayResponse(response.data);
-//     })
-//     .catch(function (error) {
-//         DisplayResponse(error);
-//     });
-// }
-
-// /////////////////////////////////////////////////////////////////////
-// // Function to Create Table
-// /////////////////////////////////////////////////////////////////////
-// function CreateTable()
-// {
-//     axios.post('http://localhost:3000/api/table', {})
-//     .then((response) => {
-//         console.log(response.data); //View in Browser's Developer Tools
-
-//         DisplayResponse(response.data);
-//     })
-//     .catch(function (error) {
-//         DisplayResponse(error);
-//     });
-// }
-
-// /////////////////////////////////////////////////////////////////////
-// // Function to Drop Table using DELETE
-// /////////////////////////////////////////////////////////////////////
-// function DropTable()
-// {
-//     axios.delete('http://localhost:3000/api/table', {})
-//     .then((response) => {
-//         console.log(response.data); //View in Browser's Developer Tools
-
-//         DisplayResponse(response.data);
-//     })
-//     .catch(function (error) {
-//         DisplayResponse(error);
-//     });
-// }
-
-// /////////////////////////////////////////////////////////////////////
-// // Function to Insert Row using POST
-// /////////////////////////////////////////////////////////////////////
-// function InsertMessage()
-// {
-//     axios.post('http://localhost:3000/api/message', { message : txtToSend.value })
-//     .then((response) => {
-//         console.log(response.data); //View in Browser's Developer Tools
-
-//         DisplayResponse(response.data);
-//     })
-//     .catch(function (error) {
-//         DisplayResponse(error);
-//     });
-// }
-
-// /////////////////////////////////////////////////////////////////////
-// // Function to Select Rows using GET
-// /////////////////////////////////////////////////////////////////////
-// function GetAllMessages()
-// {
-//     axios.get('http://localhost:3000/api/message', {})
-//     .then((response) => {
-//         console.log(response.data); //View in Browser's Developer Tools
-
-//         DisplayResponse(response.data);
-//     })
-//     .catch(function (error) {
-//         DisplayResponse(error);
-//     });
-// }
-
-
-
 // React Codes
+// class Menu extends React.Component
+// {
+//     constructor() {
+//         super()
+//         this.state = {
+//             sQuery: "",
+//             sResponse: "Response will show here"
+//         }
+
+//         // Functions need to be bind to be used
+//         this.TestGet = this.TestGet.bind(this);
+//         this.DisplayResponse = this.DisplayResponse.bind(this);
+//     }
+
+
+
+//     // Function to display server response
+//     DisplayResponse(objData) {
+//         console.log("DisplayResponse: " + JSON.stringify(objData));
+//         this.setState({
+//             sResponse: JSON.stringify(objData)
+//         });
+//     }
+
+//     // Function to Test GET with server
+//     TestGet() {
+//         axios.get('http://localhost:3000/api', { params: { message: "Hello World!" } })
+//         .then((response) => {
+//             console.log(response.data); //View in Browser's Developer Tools
+
+//             this.DisplayResponse(response.data);
+//         })
+//         .catch(function (error) {
+//             this.DisplayResponse(error);
+//             console.log(error);
+//         });
+//     }
+
+//     render()
+//     {
+//         return (
+//             <div>
+//                 <div>
+//                     <div id="Response">{this.state.sResponse}</div>
+//                 </div>
+
+//                 <div>
+//                     <button onClick = {this.TestGet}>Test GET</button>
+//                 </div>
+//             </div>
+
+
+//         );
+//     }
+// }
+
+// RecatDom.render(
+//     React.createElement(menu, {}),
+//     document.getElementById('root')
+// );
+
+
+
 class Menu extends React.Component
 {
     constructor() {
         super()
+        this.state = {
+            sResponse: "Response will show here."
+        }
+
+        // Functions need to be bind to be used
+        this.TestGet = this.TestGet.bind(this);
+        this.TestPost = this.TestPost.bind(this);
+        this.CreateTable = this.CreateTable.bind(this);
+        this.DisplayResponse = this.DisplayResponse.bind(this);
+
+    }
+
+    // Function to display server response
+    DisplayResponse(objData) {
+        console.log("DisplayResponse: " + JSON.stringify(objData));
+        this.setState({
+            sResponse: JSON.stringify(objData)
+        });
+    }
+
+    // Function to Test GET with server
+    TestGet() {
+        axios.get('http://localhost:3000/api', { params: { message: "Hello World!" } })
+        .then((response) => {
+            console.log(response.data); //View in Browser's Developer Tools
+
+            this.DisplayResponse(response.data);
+        })
+        .catch(function (error) {
+            this.DisplayResponse(error);
+            console.log(error);
+        });
+    }
+
+    // Function to Test POST
+    TestPost(){
+        axios.post('http://localhost:3000/api/', { message: "Hello Again!" })
+        .then((response) => {
+            console.log(response.data); //View in Browser's Developer Tools
+
+            this.DisplayResponse(response.data);
+        })
+        .catch(function (error) {
+            this.DisplayResponse(error);
+            console.log(error);
+        });
+    }
+
+    // Function to Create Table (incomplete)
+    CreateTable(){
+        axios.post('http://localhost:3000/api/table', {})
+        .then((response) => {
+            console.log(response.data); //View in Browser's Developer Tools
+
+           this. DisplayResponse(response.data);
+        })
+        .catch(function (error) {
+            this.DisplayResponse(error);
+            console.log(error);
+        });
     }
 
     render()
     {
         return (
             <div>
-                <h1> Hello reacty</h1>
+                <div>
+                    <div id="Response">{this.state.sResponse}</div>
+                </div>
+                <div>
+                    <button onClick = {this.TestGet}>Test GET</button>
+                    <button onClick = {this.TestPost}>Test POST</button>
+                </div>
+                 <div>
+                    <button onClick = {this.CreateTable}>Create Table</button>
+                    <button id="dropTable">Drop Table</button>
+                </div>
+                <div>
+                    {/* <input type="text" id="messageToSend" name="messageToSend"> */}
+                    <button id = "insertMessage">Send</button>
+                </div>
+                <div>
+                    <button id = "getMessages">Retrieve</button>
+                </div>
+
             </div>
         );
     }
 }
 
-RecatDom.render(
-    React.createElement(menu, {}),
+ReactDOM.render(
+    React.createElement(Menu, {}),
     document.getElementById('root')
 );
