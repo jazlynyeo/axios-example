@@ -67,6 +67,7 @@ class Menu extends React.Component
     constructor() {
         super()
         this.state = {
+            sQuery: "",
             sResponse: "Response will show here."
         }
 
@@ -128,6 +129,48 @@ class Menu extends React.Component
         });
     }
 
+    // Function to Drop Table (incomplete)
+    DropTable(){
+        axios.delete('http://localhost:3000/api/table', {})
+        .then((response) => {
+            console.log(response.data); //View in Browser's Developer Tools
+
+           this. DisplayResponse(response.data);
+        })
+        .catch(function (error) {
+            this.DisplayResponse(error);
+            console.log(error);
+        });
+    }
+
+    // Function to insert message
+    InsertMessage()
+    {
+        axios.post('http://localhost:3000/api/message', { message : this.state.sQuery })
+        .then((response) => {
+            console.log(response.data); //View in Browser's Developer Tools
+
+            this.DisplayResponse(response.data);
+        })
+        .catch(function (error) {
+            this.DisplayResponse(error);
+        });
+    }
+
+    // Function to get all messages
+    GetAllMessages()
+    {
+        axios.get('http://localhost:3000/api/message', {})
+        .then((response) => {
+            console.log(response.data); //View in Browser's Developer Tools
+
+            this.DisplayResponse(response.data);
+        })
+        .catch(function (error) {
+            this.DisplayResponse(error);
+        });
+    }
+
     render()
     {
         return (
@@ -141,14 +184,14 @@ class Menu extends React.Component
                 </div>
                  <div>
                     <button onClick = {this.CreateTable}>Create Table</button>
-                    <button id="dropTable">Drop Table</button>
+                    <button onClick = {this.DropTable}>Drop Table</button>
                 </div>
                 <div>
-                    {/* <input type="text" id="messageToSend" name="messageToSend"> */}
-                    <button id = "insertMessage">Send</button>
+                    <input type="text" id="messageToSend" name="messageToSend"></input>
+                    <button onClick = {this.InsertMessage}>Send</button>
                 </div>
                 <div>
-                    <button id = "getMessages">Retrieve</button>
+                    <button onClick = {this.GetAllMessages}>Retrive</button>
                 </div>
 
             </div>
